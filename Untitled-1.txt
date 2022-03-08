@@ -1,0 +1,55 @@
+
+npm  install  express
+
+npm install zod
+
+npm install config
+
+npm install cors
+
+npm install express
+
+npm install mongoose
+
+npm install pino
+
+npm install pino-pretty
+
+npm install dayjs
+
+npm install bcrypt
+
+npm install jsonwebtoken
+
+npm install lodash
+
+npm install nanoid
+
+
+
+
+npm install types/body-parser 
+
+npm install types/config 
+
+npm install types/cors 
+
+npm install types/express 
+
+npm install types/node 
+
+npm install types/pino 
+
+npm install types/mongoose 
+
+npm install types/bcrypt 
+
+npm install types/jsonwebtoken 
+
+npm install types/lodash 
+
+npm install types/nanoid 
+
+npm install ts-node-dev typescript -D
+
+
