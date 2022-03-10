@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import config from "config";
+import e from "express";
 
 
 export interface UserDocument extends mongoose.Document {
@@ -9,6 +10,7 @@ export interface UserDocument extends mongoose.Document {
     password: string;
     createdAt: Date;
     updatedAt: Date;
+    copmarePassowrd(candidatePassword: string): Promise<boolean>;
 }
 
 const userSchema = new mongoose.Schema({
@@ -18,6 +20,26 @@ const userSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+// pre save
+userSchema.pre('save', async function (next) {
+    let user = this as UserDocument;
+    if (!user.isModified('password')) {
+        return next()
+    }
+    const salt = await bcrypt.genSalt(config.get<number>('saltWorkFactor'));
+
+    const hash = await bcrypt.hashSync(user.password, salt);
+
+    user.password = hash
+    return next();
+})
+
+// check password
+userSchema.methods.copmarePassowrd = async function (candidatePassword: string): Promise<boolean> {
+    const user = this as UserDocument;
+    return bcrypt.compare(candidatePassword, user.password).catch((e) => false);
+}
 
 
 const UserModel = mongoose.model("User", userSchema);
