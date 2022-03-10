@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import config from "config";
-import e from "express";
 
 
 export interface UserDocument extends mongoose.Document {
@@ -36,7 +35,7 @@ userSchema.pre('save', async function (next) {
 })
 
 // check password
-userSchema.methods.copmarePassowrd = async function (candidatePassword: string): Promise<boolean> {
+userSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
     const user = this as UserDocument;
     return bcrypt.compare(candidatePassword, user.password).catch((e) => false);
 }
